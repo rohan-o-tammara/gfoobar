@@ -47,13 +47,16 @@ def Q(n, r):
     return P(n - nCr(r, 2), r)
 
 def answer(n):
+    # Check if 3 <= n <= 200
+    if n < 3 or n > 200:
+        raise Exception("Value of n (bricks) is out of bounds. 3 <= n <= 200")
     # Max levels possible for a given n is the solution to x(x+1)/2 = n
     # i.e., sum of integers till max_levels is largest number <= n
     max_levels = int(math.floor((math.sqrt(1 + 8*n)-1)/2))
     # Sum of number distributions with all valid level sizes (atleast 2 steps until 'max_levels' steps)
     result = sum(list(map(lambda x: Q(n, x), range(2, max_levels+1))))
 
-    return result
+    return int(result)
 
 if __name__ == "__main__":
     print(answer(3))
